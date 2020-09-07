@@ -1,0 +1,31 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: auth-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    username: root
+    password: Zw726515
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sso?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  redis:
+    host: 192.168.159.8
+    port: 6379
+    password: root
+  session:
+    store-type: redis
+    timeout: 1800
+logging:
+  level:
+     com:
+      tuling:
+        config:
+          role:
+            mapper: debug
+

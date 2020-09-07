@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuling.seata.mapper.ProductMapper">
+
+    <select id="selectCountById" parameterType="int" resultType="int">
+        select `count` from product where product_id=#{productId}
+    </select>
+
+    <update id="reduceCount" parameterType="map">
+        UPDATE Product SET count = count - #{amount} WHERE product_id=#{productId}
+    </update>
+
+    <update id="reduceCountByBatch" parameterType="map">
+        UPDATE Product SET count = count - 1 WHERE product_id
+        in
+        <foreach collection="list" item="ids" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </update>
+
+
+</mapper>

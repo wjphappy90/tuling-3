@@ -1,0 +1,27 @@
+
+spring:
+  application:
+    name: nacos-seata-storage-server
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3306/seata-product?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: Zw726515
+      pool-name: DatebookHikariCP
+      auto-commit: true
+      minimum-idle: 5
+      idle-timeout: 60000
+      connection-timeout: 30000
+      maximum-pool-size: 30
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+server:
+  port: 8081
+
+
+
+

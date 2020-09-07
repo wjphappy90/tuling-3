@@ -1,0 +1,45 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      enabled: true
+  profiles:
+    active: filterfacotry
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
+

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: config-app
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+domain:
+  domainNumMap:
+    'www-abc-com': 'www.badd'
+
+

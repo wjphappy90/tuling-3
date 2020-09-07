@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: tongpei #id必须要唯一
+         uri: http://spring.io
+         predicates:
+         #访问http://localhost:8888/**任意请求都会转发到 http://spring.io/**请求
+         #eg:http://localhost:8888/projects--->http://spring.io/projects
+          - Path=/**

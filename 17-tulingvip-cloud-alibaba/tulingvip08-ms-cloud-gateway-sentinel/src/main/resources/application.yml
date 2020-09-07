@@ -1,0 +1,53 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: gateway-sentinel
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: product_center
+          uri: lb://product-center
+          predicates:
+            - Path=/product/**
+        - id: order_center
+          uri: lb://order-center
+          predicates:
+            - Path=/order/**
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+    sentinel:
+      transport:
+        dashboard: localhost:9999
+      datasource:
+        gw-flow:
+          nacos:
+            server-addr: 47.111.191.111:8848
+            dataId: ${spring.application.name}-getway-flow
+            groupId: SENTINEL_GROUP
+            rule-type: gw-flow
+        gw-api-group:
+          nacos:
+            server-addr: 47.111.191.111:8848
+            dataId: ${spring.application.name}-getway-api
+            groupId: SENTINEL_GROUP
+            rule-type: gw-api-group
+
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: cors
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+

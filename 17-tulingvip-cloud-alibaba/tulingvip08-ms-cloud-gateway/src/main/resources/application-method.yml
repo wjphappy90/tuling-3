@@ -1,0 +1,12 @@
+#Http请求方法的谓词 Method 源码由MethodRoutePredicateFactory支撑
+#表示经过网关的请求 只有post方式才能被转发
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: method #id必须要唯一
+         uri: lb://product-center
+         predicates:
+           #当前请求的方式 http://localhost:8888/selectProductInfoById/1 是Post才会被转发
+           #到http://product-center/selectProductInfoById/1
+           - Method=Post

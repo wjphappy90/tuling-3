@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuling.mapper.OrderInfoMapper" >
+
+    <select id="selectOrderInfoByIdAndUserName" resultType="com.tuling.entity.OrderInfo" parameterType="map">
+      select * from order_info where order_no=#{orderNo} and user_name=#{userName}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.tuling.entity.OrderInfo" useGeneratedKeys="true" keyProperty="orderNo">
+        insert into order_info (order_no,user_name,create_dt,product_no,product_count)
+        VALUES (#{orderNo},#{userName},now(),#{productNo},#{productCount})
+    </insert>
+</mapper>

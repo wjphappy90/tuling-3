@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product
+          uri: lb://product-center
+          predicates:
+           - TulingTimeBetween=上午7:00,下午11:00
+          filters:
+            - name: RequestRateLimiter
+              args:
+                # 令牌桶每秒填充平均速率
+                redis-rate-limiter.replenishRate: 1
+                # 令牌桶的上限
+                redis-rate-limiter.burstCapacity: 2
+                # 使用SpEL表达式从Spring容器中获取Bean对象
+                key-resolver: "#{@pathKeyResovler}"
+
+  redis:
+    host: localhost
+    port: 6379
+    database: 0

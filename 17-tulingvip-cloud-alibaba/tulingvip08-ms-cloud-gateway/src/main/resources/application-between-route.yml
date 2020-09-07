@@ -1,0 +1,11 @@
+#Between谓词 源码是由BetweenRoutePredicateFactory 源码支撑
+# 就是经过网关请求的当前时间 currentTime 满足
+# Between startTime < currentTime < Between EndTime 才进行转发
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: between-route #id必须要唯一
+         uri: lb://product-center
+         predicates:
+          - Between=2019-12-16T15:53:22.999+08:00[Asia/Shanghai],2030-12-16T15:53:22.999+08:00[Asia/Shanghai]

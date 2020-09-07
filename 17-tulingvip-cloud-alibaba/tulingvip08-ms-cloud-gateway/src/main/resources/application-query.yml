@@ -1,0 +1,12 @@
+#Query 谓词 由我们的QueryRoutePredicateFactory 源码支撑
+#当前请求 必须带入参数  http://localhost:8888/selectProductInfoById/1?company=任意
+#才会被转发
+#到http://product-center/selectProductInfoById/1?company=任意
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: query #id必须要唯一
+         uri: lb://product-center
+         predicates:
+           - Query=company

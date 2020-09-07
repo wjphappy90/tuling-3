@@ -1,0 +1,13 @@
+#谓词 Cookie 源码由  CookieRoutePredicateFactory 支撑
+#表示通过网关的请求 必须带入包含了Cookie name=Company value=Tuling
+#才转发请求
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: cookie-route #id必须要唯一
+         uri: lb://product-center
+         predicates:
+          #当我们的请求中包含了Cookie name=Company value=Tuling
+          #才转发请求
+          - Cookie=Company,Tuling

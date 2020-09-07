@@ -1,0 +1,46 @@
+
+spring:
+  application:
+    name: nacos-seata-product-server
+  datasource:
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+      username: root
+      password: Zw726515
+      url: jdbc:mysql://localhost:3306/seata-product?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+      driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+server:
+  port: 8081
+seata:
+  config:
+    nacos:
+      server-addr: localhost:8848
+    type: nacos
+  registry:
+    type: nacos
+  tx-service-group: prex_tx_group
+  client:
+    support:
+      spring:
+        datasource-autoproxy: true
+
+
+
+
+
+
+
+

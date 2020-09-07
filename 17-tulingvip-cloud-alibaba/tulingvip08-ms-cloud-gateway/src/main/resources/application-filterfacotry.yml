@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product
+          uri: lb://product-center
+          predicates:
+           - TulingTimeBetween=上午7:00,下午11:00
+          filters:
+           #- AddRequestHeader=X-Request-Company,tuling
+           #- AddRequestParameter=company, tuling
+           # - AddResponseHeader=X-Request-Company, tuling
+           # - PrefixPath=/product-api
+             - TimeMonitor=enabled,true

@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+        shared-dataids: common.yml,common2.yml
+        refreshable-dataids: common.yml,common2.yml
+        ext-config:
+          - data-id: common3.yml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: common4.yml
+            group: DEFAULT_GROUP
+            refresh: true
+  application:
+    name: config-app
+  profiles:
+    active: dev

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情页面</title>
+</head>
+
+<script type="text/javascript" th:src="@{/assets/js/jquery.js}"></script>
+
+
+<body>
+
+    <br/>
+    <br/>
+        订单Id:<p th:id="orderNo" name="orderNo" th:text="${orderInfo.orderNo}" /> </br>
+        购买用户:<p th:id="userName" name="userName" th:text="${orderInfo.userName}" />
+
+</body>
+</html>

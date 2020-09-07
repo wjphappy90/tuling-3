@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product
+          uri: lb://product-center
+          predicates:
+           - Query=company,product
+          filters:
+            - TimeMonitor=enabled,true
+        - id: order
+          uri: lb://order-center
+          predicates:
+            - Query=company,order

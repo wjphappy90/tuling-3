@@ -1,0 +1,15 @@
+#Host谓词 由源码HostRoutePredicateFactory支撑
+ #说明请求http://localhost:8888/selectProductInfoById/1的
+ #Host必须满足www.smlz.com:8888或者localhost:8888才会
+ #转发到http://product-center/selectProductInfoById/1
+
+ #而127.0.0.1不会被转发
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: host-route #id必须要唯一
+         uri: lb://product-center
+         predicates:
+
+          - Host=www.smlz.com:8888,localhost:8888

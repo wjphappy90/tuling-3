@@ -1,0 +1,12 @@
+#gateway精确匹配   表示这里的http://localhost:8888/projects请求都会转发到https://spring.io/projects
+#假设我们这里访问的是http://localhost:8888/projects  那么他就会转发到http://spring.io/projects下
+#所以我们页面看到的就是spring的官网页面.
+
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: accurate #id必须要唯一
+         uri: http://spring.io #网关转发的地址
+         predicates:
+          - Path=/projects #Path就是网关谓词,用来进行路径过滤路由的

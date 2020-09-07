@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.tuling.cfg.CfgB,\
+com.tuling.cfg.CfgA

@@ -1,0 +1,29 @@
+server:
+  port: 8866
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: product_center
+          uri: lb://product-center
+          predicates:
+            - Path=/product/**
+        - id: order_center
+          uri: lb://order-center
+          predicates:
+            - Path=/order/**
+        - id: auth_center
+          uri: lb://auth-server
+          predicates:
+            - Path=/oauth/**,/user/**
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  main:
+    allow-bean-definition-overriding: true

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuling.seata.mapper.OrderMapper" >
+
+    <insert id="saveOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order` (user_id,pay_money,product_id,status,`count`)
+        VALUES (#{userId},#{payMoney},#{productId},#{status},#{count})
+    </insert>
+    
+    <update id="updateOrderStatusById" parameterType="map">
+        update `order` set status=#{status} where id=#{orderId}
+    </update>
+</mapper>

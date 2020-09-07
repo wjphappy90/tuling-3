@@ -1,0 +1,12 @@
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: tulingVip
+    username: guest
+    password: guest
+    connection-timeout: 10000
+    template:
+      mandatory: true
+

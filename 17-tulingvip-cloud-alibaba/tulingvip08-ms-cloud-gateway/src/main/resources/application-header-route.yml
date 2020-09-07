@@ -1,0 +1,13 @@
+#Header谓词  是由源码HeaderRoutePredicateFactory支撑的
+#说明请求经过网关 必须带入
+#header的k=X-Request-appId v=Tuling才会被转发
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: header-route #id必须要唯一
+         uri: lb://product-center
+         predicates:
+          - Header=X-Request-appId,Tuling
+
+

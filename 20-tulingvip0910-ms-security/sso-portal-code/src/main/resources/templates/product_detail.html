@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情页面</title>
+</head>
+
+<script type="text/javascript" th:src="@{/assets/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/jquery.cookie.js}"></script>
+
+<script>
+
+    function buy() {
+        var currentUrl = window.location.href;
+        var buyVo = new Object();
+        buyVo.productNo = $("#productNo").val();
+        buyVo.productCount=1;
+        $.ajax({
+            type: "POST",
+            url: "http://portal.tuling.com:8855/order/createOrder",
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:JSON.stringify(buyVo),
+            success: function(ret){
+               /* if(ret.status=="-1") {
+                    window.location.href="http://auth.tuling.com:8888/oauth/authorize?response_type=code&client_id=portal_app&redirect_uri=http://portal.tuling.com:8855/callBack&state="+currentUrl;
+                }*/if(ret.status=='888888') {
+                    var orderNo = ret.data;
+                    //购买成功跳转到订单详情页面
+                    window.location.href="http://portal.tuling.com:8855/detail/"+orderNo;
+                }/*if(ret.status == "000007") {
+
+                    window.location.href="http://auth.tuling.com:8888/oauth/authorize?response_type=code&client_id=portal_app&redirect_uri=http://portal.tuling.com:8855/callBack&state="+currentUrl;
+                }*/
+                else{
+                    alert(ret.msg);
+                    window.location.href="http://auth.tuling.com:8888/oauth/authorize?response_type=code&client_id=portal_app&redirect_uri=http://portal.tuling.com:8855/callBack&state="+currentUrl;
+                }
+
+            }
+        });
+    }
+
+    function logOut() {
+        var targetUrl ="http://portal.tuling.com:8855/logout";
+        $.ajax({
+            type: "POST",
+            url: targetUrl,
+            dataType:'json',
+            contentType:'application/json;charset=UTF-8',
+            data:null,
+            success: function(ret){
+                if(ret.status == '000006') {
+                    $.removeCookie("COOKIE-ACCESS-TOKEN-KEN", {path: '/',domain:'tuling.com',path:'/'});
+                    $.removeCookie("COOKIE-REFRESH-TOKEN-KEN", {path: '/',domain:'tuling.com',path:'/'});
+                    // todo Cookie的登陆方案，需要删除流浪器中的cookie
+/*
+
+                    /**
+                     * 这种退出方式不行，因为这种退出的方式 只是把portal工程的session给失效掉了 没有把认证服务器上的session
+                     * 给失效掉
+                     * @type {string}
+                     */
+                    //window.location.href="http://portal.tuling.com:8855/home.html";
+                    /**
+                     * 真正的处理方式 是本地session失效了  认证服务器上的session 也要同时失效 所有我们还需要调用 认证服务器的
+                     * 退出的接口. 并且需要在认证服务器上退出进行特殊出来(退出成功 需要跳回到我们的应用上redirectUrl=http://portal.tuling.com:8855/home.html)
+                     */
+                    window.location.href = "http://auth.tuling.com:8888/logout?redirectUrl=http://portal.tuling.com:8855/home.html";
+                }else {
+                    //说明 我们的portal-web端退出失败
+                }
+            }
+        });
+    }
+
+
+</script>
+<body>
+    登陆用户:<p th:text="${loginUser}"></p>
+    <a href="#" id="logOut" onclick="logOut(); return false">退出</a>
+    <br/>
+    <br/>
+                <input th:id="productNo" hidden="true" name="productNo" th:value="${productInfo.productNo}" ><br/>
+        商品名称:<p th:id="productName" name="productName" th:text="${productInfo.productName}" /> </br>
+        商品个数:<p th:id="productCount" name="productStore" th:text="${productInfo.productStore}" />
+        商品价格:<p th:id="productPrice" name="productNo" th:text="${productInfo.productPrice}" /></br>
+
+    <input id="buy" type="button" onclick="buy();return false" value="购买" />
+
+</body>
+</html>

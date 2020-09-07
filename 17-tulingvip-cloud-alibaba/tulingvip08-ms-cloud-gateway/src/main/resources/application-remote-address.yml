@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: remote-address #id必须要唯一
+         uri: lb://product-center
+         predicates:
+            # 当且仅当请求IP是192.168.0.1/32网段，例如192.168.0.10，才会转发到用户微服务
+           - RemoteAddr=192.168.0.1/32

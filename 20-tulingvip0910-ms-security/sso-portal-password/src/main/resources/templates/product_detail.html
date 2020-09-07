@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情页面</title>
+</head>
+
+<script type="text/javascript" th:src="@{/assets/js/jquery.js}"></script>
+
+<script>
+    $(function(){
+        $('#buy').click(function(){
+            var currentUrl = window.location.href;
+            var buyVo = new Object();
+            buyVo.productNo = $("#productNo").val();
+            buyVo.productCount=1;
+            $.ajax({
+                type: "POST",
+                url: "http://portal.tuling.com:8855/order/createOrder",
+                dataType:'json',
+                contentType:'application/json;charset=UTF-8',
+                data:JSON.stringify(buyVo),
+                success: function(ret){
+                    if(ret.status=="-1") {
+                        window.location.href="http://portal.tuling.com:8855/login.html?callBack="+currentUrl;
+                    }if(ret.status=='888888') {
+                        var orderNo = ret.data;
+                        //购买成功跳转到订单详情页面
+                        window.location.href="http://portal.tuling.com:8855/detail/"+orderNo;
+                    }else{
+                        alert(ret.msg);
+                    }
+
+                }
+            });
+        });
+
+
+    });
+
+
+</script>
+<body>
+    登陆用户:<p th:text="${loginUser}"></p>
+    <a href="http://portal.tuling.com:8855/logout">退出</a>
+    <br/>
+    <br/>
+                <input th:id="productNo" hidden="true" name="productNo" th:value="${productInfo.productNo}" ><br/>
+        商品名称:<p th:id="productName" name="productName" th:text="${productInfo.productName}" /> </br>
+        商品个数:<p th:id="productCount" name="productStore" th:text="${productInfo.productStore}" />
+        商品价格:<p th:id="productPrice" name="productNo" th:text="${productInfo.productPrice}" /></br>
+
+    <input id="buy" type="button" onclick="buy();return false" value="购买" />
+
+</body>
+</html>

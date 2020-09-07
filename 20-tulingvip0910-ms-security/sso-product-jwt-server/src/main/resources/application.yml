@@ -1,0 +1,46 @@
+
+spring:
+  datasource:
+      druid:
+        username: root
+        password: Zw726515
+        jdbcUrl: jdbc:mysql://localhost:3306/tuling-ms-alibaba?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        driverClassName: com.mysql.jdbc.Driver
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        filters: stat,wall #\u914D\u7F6E\u8FC7\u6EE4\u5668
+        maxPoolPreparedStatementPerConnectionSize: 20
+        useGlobalDataSourceStat: true
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  application:
+    name: product-center
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+server:
+  port: 8877
+logging:
+  level:
+    com:
+      tuling:
+        mapper: debug
+security:
+  oauth2:
+    client:
+      client-id: product_app
+      client-secret: smlz
+    resource:
+      jwt:
+        key-uri: http://auth.tuling.com:8888/oauth/token_key
+

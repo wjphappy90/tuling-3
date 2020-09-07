@@ -1,0 +1,18 @@
+#Path 谓词 由我们的PathRoutePredicateFactory 源码支撑
+#访问http://localhost:8888/**路径  都会转发到http://product-center/**
+#eg.http://localhost:8888/selectProductInfoById/1-->http://product-center/selectProductInfoById/1
+##eg.http://localhost:8888/selectProductInfoById/2-->http://product-center/selectProductInfoById/2
+
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: product_center #id必须要唯一
+         uri: lb://product-center
+         predicates:
+           - Path=/product/**
+       - id: order_center
+         uri: lb://order-center
+         predicates:
+           - Path=/order/**
+

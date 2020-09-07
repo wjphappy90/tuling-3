@@ -1,0 +1,17 @@
+
+server:
+  port: 8855
+spring:
+  application:
+    name: portal-web
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  thymeleaf:
+    cache: false
+ribbon:
+  eager-load:
+    enabled: true
+  ReadTimeout: 6000
+  ConnectTimeout: 6000

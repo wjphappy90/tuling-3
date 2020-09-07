@@ -1,0 +1,12 @@
+#Path 谓词 由我们的PathRoutePredicateFactory 源码支撑
+#表示:访问http://localhost:8888/selectProductInfoById/1
+#会转发到http://product-center/selectProductInfoById/1
+#而http://localhost:8888/selectProductInfoById/2 不会被转发
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: path-accurate #id必须要唯一
+         uri: lb://product-center
+         predicates:
+          - Path=/selectProductInfoById/1

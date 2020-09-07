@@ -1,0 +1,11 @@
+#这里我们测试的是网关的After谓词,对应的源码处理AfterRoutePredicateFactory
+#作用就是经过网关的所有请求 当前时间>比After阈值  就进行转发
+#现在我们是2020年了 currentTime<After阈值，所以我们不会进行转发，而返回404
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: after-route #id必须要唯一
+         uri: lb://product-center
+         predicates:
+          - After=2030-12-16T15:53:22.999+08:00[Asia/Shanghai]

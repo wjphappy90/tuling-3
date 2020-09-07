@@ -1,0 +1,12 @@
+#这里我们测试的是网关的Before谓词,对应的源码处理BeforeRoutePredicateFactory
+#作用就是经过网关的所有请求当前时间 比2010-12-16T15:53:22.999+08:00[Asia/Shanghai] 小  就进行转发
+#现在我们是2020年了 时间比配置的阈值大，所以我们不会进行转发，而返回404
+#2010-12-16T15:53:22.999+08:00[Asia/Shanghai] 这个时间怎么获取的 System.out.println(ZonedDateTime.now())
+spring:
+  cloud:
+    gateway:
+      routes:
+       - id: before-route #id必须要唯一
+         uri: lb://product-center #这里可以使用负载均衡的写法
+         predicates:
+          - Before=2010-12-16T15:53:22.999+08:00[Asia/Shanghai]
